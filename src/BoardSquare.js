@@ -1,16 +1,17 @@
-import React from 'react'
-import Square from './Square'
-import { canMoveKnight, moveKnight } from './Game'
-import { ItemTypes } from './constants'
-import { useDrop } from 'react-dnd'
+import React from 'react';
+import Square from './Square';
+import { ItemTypes } from './constants';
+import { useDrop } from 'react-dnd';
 
-function BoardSquare({ x, y, children, updateKnightPosition }) {
+function BoardSquare({ x, y, children, updatePosition, canMove }) {
   const black = (x + y) % 2 === 1
-  const [{ isOver }, drop] = useDrop({
-    accept: ItemTypes.KNIGHT,
-    drop: () => updateKnightPosition([x, y]),
+  const [{ isOver, canDrop }, drop] = useDrop({
+    accept: [ItemTypes.KNIGHT, ItemTypes.ROOK],
+    drop: (item) => updatePosition([x, y], item),
+    canDrop: (item) => canMove(x, y, item),
     collect: monitor => ({
       isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop()
     }),
   })
 
@@ -42,4 +43,4 @@ function BoardSquare({ x, y, children, updateKnightPosition }) {
   )
 }
 
-export default BoardSquare
+export default BoardSquare;

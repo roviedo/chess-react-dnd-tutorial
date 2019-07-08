@@ -2,13 +2,13 @@ import React from 'react'
 import { ItemTypes } from './constants'
 import { useDrag } from 'react-dnd'
 
-function Knight() {
+function Rook() {
   const [{isDragging}, drag] = useDrag({
-    item: { type: ItemTypes.KNIGHT },
-    collect: monitor => ({
-      isDragging: !!monitor.isDragging(),
-    })
-  });
+    item: { type: ItemTypes.ROOK },
+        collect: monitor => ({
+            isDragging: !!monitor.isDragging(),
+        }),
+  })
 
   return (
     <div
@@ -20,9 +20,9 @@ function Knight() {
         cursor: 'move',
       }}
     >
-      ♘
+      ♖
     </div>
   )
 }
 
-export default Knight
+export default Rook
